@@ -1,0 +1,17 @@
+node_modules/
+dist/
+*.log
+.env
+prompts.db
+*.db
+.DS_Store
+Thumbs.db
+coverage/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.cache/
+temp/
+tmp/
