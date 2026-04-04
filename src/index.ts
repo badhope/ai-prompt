@@ -286,7 +286,9 @@ export class PromptFramework {
   }
 
   private generateId(): string {
+    // @ts-ignore - crypto is available in modern environments
     if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+      // @ts-ignore
       return crypto.randomUUID();
     }
     return `${Date.now()}-${Math.random().toString(36).substring(2, 11)}`;

@@ -109,8 +109,8 @@ export interface Stats {
 export class FrameworkError extends Error {
   constructor(
     message: string,
-    public code: string,
-    public details?: unknown
+    public readonly code: string,
+    public readonly details?: unknown
   ) {
     super(message);
     this.name = 'FrameworkError';
