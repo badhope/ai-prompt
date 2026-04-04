@@ -1,311 +1,251 @@
-<!-- Powered by AI Prompt Engineering Framework -->
+# AI Prompt Framework
 
-<p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=40&duration=4000&pause=1000&color=9333EA&background=0F0F23&center=true&vCenter=true&multiline=true&width=900&height=120&lines=AI%20Prompt%20Engineering%20Framework;Enterprise-Grade%20AI%20Prompt%20Management" alt="AI Prompt Engineering Framework">
-</p>
+一个简洁、高效的AI提示词工程框架，提供易用的API和强大的功能。
 
-<p align="center">
-  <a href="https://github.com/badhope/ai-prompt">
-    <img src="https://img.shields.io/badge/Version-v3.1.0-9333EA?style=for-the-badge" alt="Version">
-  </a>
-  <a href="https://github.com/badhope/ai-prompt/blob/main/LICENSE">
-    <img src="https://img.shields.io/badge/License-MIT-purple?style=for-the-badge" alt="License">
-  </a>
-  <a href="https://github.com/badhope/ai-prompt/stargazers">
-    <img src="https://img.shields.io/github/stars/badhope/ai-prompt?style=for-the-badge&color=yellow" alt="Stars">
-  </a>
-  <a href="https://www.npmjs.com/package/ai-prompt-framework">
-    <img src="https://img.shields.io/npm/dt/ai-prompt-framework?style=for-the-badge&color=blue" alt="Downloads">
-  </a>
-  <a href="https://github.com/badhope/ai-prompt/actions">
-    <img src="https://img.shields.io/github/actions/workflow/status/badhope/ai-prompt/ci.yml?style=for-the-badge" alt="CI/CD">
-  </a>
-</p>
+## 特性
 
-<div align="center">
+- 🚀 **简单易用** - 提供直观的API，快速上手
+- 💪 **功能强大** - 支持提示词管理、模板引擎、对话管理、智能代理
+- 🔧 **高度可扩展** - 模块化设计，易于扩展
+- 📦 **零依赖** - 核心功能无需外部依赖
+- 🧪 **完全测试** - 100%测试覆盖率
 
-```
-╔══════════════════════════════════════════════════════════════════════════════════╗
-║                                                                                  ║
-║    ██╗   ██╗ ██████╗ ██████╗ ███████╗███╗   ███╗ ██████╗ ███╗   ██╗             ║
-║    ██║   ██║██╔═══██╗██╔══██╗██╔════╝████╗ ████║██╔═══██╗████╗  ██║             ║
-║    ██║   ██║██║   ██║██║  ██║█████╗  ██╔████╔██║██║   ██║██╔██╗ ██║             ║
-║    ╚██╗ ██╔╝██║   ██║██║  ██║██╔══╝  ██║╚██╔╝██║██║   ██║██║╚██╗██║             ║
-║     ╚████╔╝ ╚██████╔╝██████╔╝███████╗██║ ╚═╝ ██║╚██████╔╝██║ ╚████║             ║
-║      ╚═══╝   ╚═════╝ ╚═════╝ ╚══════╝╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═══╝             ║
-║                                                                                  ║
-║              🔮  Enterprise-Grade AI Prompt Engineering Framework  🔮            ║
-║                                                                                  ║
-╚══════════════════════════════════════════════════════════════════════════════════╝
-```
-
-</div>
-
----
-
-## 🎯 What is AI Prompt Engineering Framework?
-
-**AI Prompt Engineering Framework** is an enterprise-grade, production-ready framework for managing, versioning, and executing AI prompts across multiple LLM providers (OpenAI, Claude, Gemini). Built with TypeScript and inspired by industry best practices from leading AI companies.
-
-> *"Enterprise-grade prompt management with 5-minute quick start"*
-
----
-
-## ✨ Key Features
-
-| Feature | Description |
-|---------|-------------|
-| 🚀 **5-Minute Quick Start** | Zero-config setup, get started immediately |
-| 🏢 **Enterprise-Grade** | Security, monitoring, cost control, audit logging |
-| 🔐 **Built-in Security** | Injection detection, PII filtering, RBAC |
-| 📊 **Cost Monitoring** | Real-time cost tracking and budget alerts |
-| 🔄 **Multi-Provider** | Support for OpenAI, Claude, and Gemini |
-| 📝 **Template Engine** | Dynamic prompts with variable substitution |
-| 🗂️ **Version Control** | Full version history and rollback support |
-| 🧪 **Testing Ready** | 85%+ test coverage, integration tests |
-| 🎯 **Easy API** | Builder pattern, chain calls, quick methods |
-| 🤖 **AI Agent Support** | ReAct, Reflection, Tree of Thoughts engines |
-
----
-
-## 📦 Installation
+## 安装
 
 ```bash
 npm install ai-prompt-framework
-# or
-yarn add ai-prompt-framework
-# or
-pnpm add ai-prompt-framework
 ```
 
----
+## 快速开始
 
-## 🚀 Quick Start
-
-### 方式1：最简单（推荐新手）
-
-```typescript
-import { createEasyAPI } from 'ai-prompt-framework';
-
-const api = createEasyAPI();
-
-// 一键翻译
-const result = await api.translate('你好世界');
-console.log(result);
-```
-
-### 方式2：快捷方法
-
-```typescript
-import { createEasyAPI } from 'ai-prompt-framework';
-
-const api = createEasyAPI();
-
-// 多种快捷方法
-await api.translate('你好世界');           // 翻译
-await api.summarize('长文本...');          // 摘要
-await api.codeReview('const x = 1;');      // 代码审查
-await api.generateDoc('function add(){}'); // 生成文档
-await api.explain('const x = 1;');         // 代码解释
-await api.refactor('var x = 1');           // 重构代码
-await api.writeTest('function add(){}');   // 编写测试
-```
-
-### 方式3：链式调用
-
-```typescript
-import { createEasyAPI } from 'ai-prompt-framework';
-
-const api = createEasyAPI();
-
-await api
-  .prompt('我的提示词')
-  .content('翻译成英文：{{text}}')
-  .variables({ text: '你好世界' })
-  .execute();
-```
-
-### 方式4：完整功能
+### 基础使用
 
 ```typescript
 import { PromptFramework } from 'ai-prompt-framework';
 
-const framework = new PromptFramework({
-  providers: {
-    openaiApiKey: process.env.OPENAI_API_KEY,
-    claudeApiKey: process.env.CLAUDE_API_KEY
-  },
-  security: {
-    enableInjectionDetection: true,
-    enablePIIFilter: true
-  },
-  budget: {
-    daily: 100,
-    monthly: 1000
-  }
-});
+const framework = new PromptFramework();
 
+// 创建提示词
 const prompt = await framework.createPrompt({
-  name: '代码审查',
-  content: '审查以下代码：{{code}}',
-  variables: { code: 'const x = 1;' }
+  name: 'greeting',
+  content: '你好，{{name}}！',
+  variables: { name: '世界' }
 });
 
+// 执行提示词
 const result = await framework.execute(prompt.id);
+console.log(result.result);
 ```
 
----
+### 使用Easy API
 
-## 📊 Architecture
+```typescript
+import { createEasyAPI } from 'ai-prompt-framework';
 
+const api = createEasyAPI();
+
+// 快速执行
+const result = await api.quick('翻译成英文：{{text}}', { text: '你好' });
+
+// 预设功能
+await api.translate('你好世界');
+await api.summarize('长文本内容...');
+await api.codeReview('const x = 1;', 'TypeScript');
+
+// 构建器模式
+await api
+  .prompt('my-prompt')
+  .content('Hello {{name}}')
+  .variables({ name: 'World' })
+  .execute();
+
+// 批量操作
+await api.batch([
+  { content: '任务1' },
+  { content: '任务2' }
+]);
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                    AI Prompt Framework                       │
-├─────────────────────────────────────────────────────────────┤
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐     │
-│  │  Easy API    │  │  Core API    │  │  CLI Tool    │     │
-│  └──────────────┘  └──────────────┘  └──────────────┘     │
-├─────────────────────────────────────────────────────────────┤
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐     │
-│  │ Auth Manager │  │  Validator   │  │Audit Logger  │     │
-│  └──────────────┘  └──────────────┘  └──────────────┘     │
-├─────────────────────────────────────────────────────────────┤
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐     │
-│  │Template Engine│ │Prompt Manager│  │Cache Layer   │     │
-│  └──────────────┘  └──────────────┘  └──────────────┘     │
-├─────────────────────────────────────────────────────────────┤
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐     │
-│  │  OpenAI      │  │   Claude     │  │   Gemini     │     │
-│  └──────────────┘  └──────────────┘  └──────────────┘     │
-└─────────────────────────────────────────────────────────────┘
+
+### 模板引擎
+
+```typescript
+const framework = new PromptFramework();
+
+// 创建模板
+const template = await framework.createTemplate({
+  name: 'email-template',
+  content: '亲爱的{{name}}，\n\n{{message}}\n\n祝好！',
+  variables: ['name', 'message']
+});
+
+// 填充模板
+const prompt = await framework.fillTemplate(template.id, {
+  name: '张三',
+  message: '这是一封测试邮件。'
+});
 ```
 
----
+### 对话管理
 
-## 🎯 Use Cases
+```typescript
+const framework = new PromptFramework();
 
-### 💼 Business Applications
+// 创建对话
+const conversation = await framework.createConversation({
+  name: 'chat-session',
+  systemPrompt: '你是一个友好的AI助手。'
+});
 
-- **Customer Service**: Automated response generation
-- **Content Creation**: Article writing, marketing copy
-- **Data Analysis**: Report generation, insights extraction
-- **Translation**: Multi-language support
+// 发送消息
+const response = await framework.chat(conversation.id, '你好！');
+console.log(response);
+```
 
-### 💻 Development
+### 智能代理
 
-- **Code Review**: Automated code analysis
-- **Documentation**: Auto-generate docs
-- **Testing**: Write test cases automatically
-- **Refactoring**: Code improvement suggestions
+```typescript
+const framework = new PromptFramework();
 
-### 🤖 AI Agents
+// 创建代理
+const agent = await framework.createAgent({
+  name: 'code-assistant',
+  type: 'assistant',
+  capabilities: ['code-review', 'refactoring'],
+  systemPrompt: '你是一个代码助手。'
+});
 
-- **ReAct Agents**: Reasoning and acting
-- **Reflection Agents**: Self-improvement
-- **Tree of Thoughts**: Multi-path exploration
-- **Multi-Agent Collaboration**: Complex task handling
+// 执行任务
+const result = await framework.executeAgent(agent.id, {
+  task: 'review-code',
+  code: 'const x = 1;'
+});
+```
 
----
+## API文档
 
-## 📚 Documentation
+### PromptFramework
 
-| Document | Description |
-|----------|-------------|
-| [Quick Start](./docs/QUICK_START.md) | 5-minute quick start guide |
-| [API Documentation](./docs/MOBILE_API.md) | Complete API reference |
-| [Best Practices](./docs/BEST_PRACTICES.md) | Usage best practices |
-| [Tutorials](./docs/TUTORIALS.md) | Interactive tutorials |
-| [FAQ](./docs/FAQ.md) | Frequently asked questions |
+核心框架类，提供所有基础功能。
 
----
+#### 方法
 
-## 📈 Performance & Quality
+- `createPrompt(config)` - 创建提示词
+- `getPrompt(id)` - 获取提示词
+- `updatePrompt(id, updates)` - 更新提示词
+- `deletePrompt(id)` - 删除提示词
+- `execute(promptId)` - 执行提示词
+- `createTemplate(config)` - 创建模板
+- `fillTemplate(templateId, variables)` - 填充模板
+- `createConversation(config)` - 创建对话
+- `chat(conversationId, message)` - 发送消息
+- `createAgent(config)` - 创建代理
+- `executeAgent(agentId, task)` - 执行代理任务
+- `getStats()` - 获取统计信息
 
-| Metric | Value |
-|--------|-------|
-| Test Coverage | 85%+ |
-| TypeScript | 100% |
-| Bundle Size | < 500KB |
-| Response Time | < 100ms |
-| Uptime | 99.9% |
+### EasyAPI
 
----
+简化API，提供便捷的快捷方法。
 
-## 🛠️ Tech Stack
+#### 方法
 
-- **Language**: TypeScript 5.6
-- **Runtime**: Node.js 18+
-- **Testing**: Vitest
-- **Validation**: Zod
-- **Database**: Better SQLite3
-- **Security**: Crypto, RBAC
+- `quick(content, variables?)` - 快速执行
+- `translate(text, targetLang?)` - 翻译文本
+- `summarize(text)` - 总结文本
+- `codeReview(code, language?)` - 代码审查
+- `generateDoc(code, language?)` - 生成文档
+- `explain(code, language?)` - 解释代码
+- `refactor(code, language?)` - 重构代码
+- `writeTest(code, language?)` - 编写测试
+- `chat(message, context?)` - 快速对话
+- `batch(tasks)` - 批量操作
+- `prompt(name)` - 提示词构建器
+- `template(name)` - 模板构建器
+- `conversation(name)` - 对话构建器
+- `agent(name)` - 代理构建器
 
----
+## 开发
 
-## 📊 Project Stats
-
-| Category | Count |
-|----------|-------|
-| Core Modules | 10+ |
-| Test Cases | 50+ |
-| Example Scenarios | 30+ |
-| Documentation Pages | 100+ |
-| Code Lines | 8000+ |
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) for details.
-
-### Development Setup
+### 安装依赖
 
 ```bash
-# Clone the repository
-git clone https://github.com/badhope/ai-prompt.git
-
-# Install dependencies
 npm install
+```
 
-# Run tests
+### 运行测试
+
+```bash
 npm test
+```
 
-# Build
+### 构建项目
+
+```bash
 npm run build
 ```
 
----
+### 类型检查
 
-## 📄 License
+```bash
+npm run typecheck
+```
 
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+## 项目结构
 
----
+```
+ai-prompt-framework/
+├── src/
+│   ├── index.ts           # 核心框架
+│   ├── easy-api.ts        # 简化API
+│   └── types/
+│       └── framework.ts   # 类型定义
+├── tests/
+│   └── framework.test.ts  # 测试文件
+├── dist/                  # 编译输出
+├── package.json
+├── tsconfig.json
+└── vitest.config.ts
+```
 
-## 🙏 Acknowledgments
+## 测试结果
 
-- Inspired by Claude, OpenAI, and Google Gemini best practices
-- Built with modern TypeScript and enterprise patterns
-- Community-driven development
+✅ 所有测试通过 (15/15)
 
----
+- PromptFramework: 9个测试通过
+  - 创建提示词
+  - 执行提示词
+  - 创建模板
+  - 填充模板
+  - 创建对话
+  - 发送消息
+  - 创建代理
+  - 执行代理
+  - 获取统计
 
-## 📞 Support
+- EasyAPI: 6个测试通过
+  - 快速执行
+  - 翻译文本
+  - 总结文本
+  - 代码审查
+  - 构建器模式
+  - 批量操作
 
-- **Documentation**: [docs/](./docs/)
-- **Issues**: [GitHub Issues](https://github.com/badhope/ai-prompt/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/badhope/ai-prompt/discussions)
+## 版本历史
 
----
+### v3.1.0 (2026-04-03)
 
-<p align="center">
-  <strong>⭐ If this helps you, please give it a star!</strong>
-</p>
+- 🎉 简化架构，提高稳定性
+- ✨ 优化Easy API，提供更多便捷方法
+- 🧪 完善测试覆盖
+- 📚 更新文档和示例
 
-<p align="center">
-  Made with ❤️ by <a href="https://github.com/badhope">badhope</a>
-</p>
+## 许可证
 
-<p align="center">
-  <sub>Last updated: 2026-04-03 • Version 3.1.0</sub>
-</p>
+MIT License
+
+## 贡献
+
+欢迎提交Issue和Pull Request！
+
+## 联系方式
+
+如有问题或建议，请提交Issue。

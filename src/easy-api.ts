@@ -1,4 +1,10 @@
 import { PromptFramework } from './index';
+import {
+  PromptConfig,
+  TemplateConfig,
+  ConversationConfig,
+  AgentConfig
+} from './types/framework';
 
 export class EasyAPI {
   private framework: PromptFramework;
@@ -99,16 +105,6 @@ export class EasyAPI {
     );
   }
 
-  async *stream(content: string, variables?: Record<string, any>) {
-    const prompt = await this.framework.createPrompt({
-      name: 'stream-prompt',
-      content,
-      variables
-    });
-
-    yield* this.framework.stream(prompt.id);
-  }
-
   getStats() {
     return this.framework.getStats();
   }
@@ -196,7 +192,7 @@ export class TemplateBuilder {
     return this.framework.createTemplate({
       name: this.name,
       content: this._content || '',
-      variables: this._variables
+      variables: this._variables || []
     });
   }
 

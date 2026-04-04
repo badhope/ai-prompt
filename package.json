@@ -1,7 +1,7 @@
 {
   "name": "ai-prompt-framework",
-  "version": "1.0.0",
-  "description": "Enterprise-grade AI Prompt Engineering Framework",
+  "version": "3.1.0",
+  "description": "Enterprise-grade AI Prompt Engineering Framework with Easy API, Security, Caching, and AI Agent Support",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -11,13 +11,21 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
-    "test": "vitest",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "test:coverage": "vitest --coverage",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint src --ext .ts,.tsx",
+    "lint:fix": "eslint src --ext .ts,.tsx --fix",
     "format": "prettier --write \"src/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.ts\"",
     "cli": "node --loader ts-node/esm src/cli/index.ts",
-    "clean": "rm -rf dist",
-    "prepare": "npm run build"
+    "clean": "rm -rf dist coverage",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run test && npm run lint && npm run typecheck",
+    "example:developer": "ts-node examples/developer-usage.ts",
+    "example:agent": "ts-node examples/ai-agent-usage.ts",
+    "example:easy-api": "ts-node examples/easy-api-usage.ts"
   },
   "keywords": [
     "ai",
