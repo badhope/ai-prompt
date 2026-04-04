@@ -1,7 +1,7 @@
 export interface PromptConfig {
   name: string;
   content: string;
-  variables?: Record<string, any>;
+  variables?: Record<string, unknown>;
   tags?: string[];
   version?: string;
 }
@@ -72,12 +72,31 @@ export interface ProviderConfig {
   geminiApiKey?: string;
 }
 
+export interface SecurityConfig {
+  enabled?: boolean;
+  maxPromptLength?: number;
+  allowedModels?: string[];
+}
+
+export interface CacheConfig {
+  enabled?: boolean;
+  ttl?: number;
+  maxSize?: number;
+}
+
+export interface BudgetConfig {
+  enabled?: boolean;
+  dailyLimit?: number;
+  monthlyLimit?: number;
+  alertThreshold?: number;
+}
+
 export interface FrameworkConfig {
   dbPath?: string;
   providers?: ProviderConfig;
-  security?: any;
-  cache?: any;
-  budget?: any;
+  security?: SecurityConfig;
+  cache?: CacheConfig;
+  budget?: BudgetConfig;
 }
 
 export interface Stats {
@@ -85,4 +104,35 @@ export interface Stats {
   totalExecutions: number;
   totalCost: number;
   averageDuration: number;
+}
+
+export class FrameworkError extends Error {
+  constructor(
+    message: string,
+    public code: string,
+    public details?: unknown
+  ) {
+    super(message);
+    this.name = 'FrameworkError';
+  }
+}
+
+export class ValidationError extends FrameworkError {
+  constructor(field: string, message: string) {
+    super(`Validation failed for ${field}: ${message}`, 'VALIDATION_ERROR', { field });
+  }
+}
+
+export class NotFoundError extends FrameworkError {
+  constructor(resource: string, id: string) {
+    super(`${resource} not found: ${id}`, 'NOT_FOUND', { resource, id });
+  }
+}
+
+export interface BudgetAlert {
+  type: 'daily' | 'monthly' | 'threshold';
+  currentCost: number;
+  limit: number;
+  percentage: number;
+  timestamp: Date;
 }

@@ -3,14 +3,15 @@ import {
   PromptConfig,
   TemplateConfig,
   ConversationConfig,
-  AgentConfig
+  AgentConfig,
+  BudgetAlert
 } from './types/framework';
 
 export class EasyAPI {
   private framework: PromptFramework;
 
-  constructor(config?: any) {
-    this.framework = new PromptFramework(config);
+  constructor(config?: unknown) {
+    this.framework = new PromptFramework(config as Record<string, unknown> | undefined);
   }
 
   prompt(name: string) {
@@ -29,7 +30,7 @@ export class EasyAPI {
     return new AgentBuilder(this.framework, name);
   }
 
-  async quick(content: string, variables?: Record<string, any>) {
+  async quick(content: string, variables?: Record<string, unknown>) {
     const prompt = await this.framework.createPrompt({
       name: 'quick-prompt',
       content,
@@ -89,7 +90,11 @@ export class EasyAPI {
     return this.framework.chat(conversation.id, message);
   }
 
-  async batch(tasks: Array<{ content: string; variables?: Record<string, any> }>) {
+  async batch(tasks: Array<{ content: string; variables?: Record<string, unknown> }>) {
+    if (tasks.length === 0) {
+      return [];
+    }
+
     const prompts = await Promise.all(
       tasks.map(task =>
         this.framework.createPrompt({
@@ -113,51 +118,56 @@ export class EasyAPI {
     return this.framework.getCostBreakdown();
   }
 
-  onBudgetAlert(callback: (alert: any) => void) {
+  onBudgetAlert(callback: (alert: BudgetAlert) => void) {
     return this.framework.onBudgetAlert(callback);
   }
 }
 
-export class PromptBuilder {
-  private framework: PromptFramework;
+abstract class BaseBuilder<T, Self extends BaseBuilder<T, Self>> {
+  protected framework: PromptFramework;
+  protected config: Partial<T> = {};
+
+  constructor(framework: PromptFramework) {
+    this.framework = framework;
+  }
+
+  protected set<K extends keyof T>(key: K, value: T[K]): Self {
+    this.config[key] = value;
+    return this as unknown as Self;
+  }
+}
+
+export class PromptBuilder extends BaseBuilder<PromptConfig, PromptBuilder> {
   private name: string;
-  private _content?: string;
-  private _variables?: Record<string, any>;
-  private _tags?: string[];
-  private _version?: string;
 
   constructor(framework: PromptFramework, name: string) {
-    this.framework = framework;
+    super(framework);
     this.name = name;
   }
 
   content(content: string) {
-    this._content = content;
-    return this;
+    return this.set('content', content);
   }
 
-  variables(variables: Record<string, any>) {
-    this._variables = variables;
-    return this;
+  variables(variables: Record<string, unknown>) {
+    return this.set('variables', variables);
   }
 
   tags(tags: string[]) {
-    this._tags = tags;
-    return this;
+    return this.set('tags', tags);
   }
 
   version(version: string) {
-    this._version = version;
-    return this;
+    return this.set('version', version);
   }
 
   async create() {
     return this.framework.createPrompt({
       name: this.name,
-      content: this._content || '',
-      variables: this._variables,
-      tags: this._tags,
-      version: this._version
+      content: this.config.content || '',
+      variables: this.config.variables,
+      tags: this.config.tags,
+      version: this.config.version
     });
   }
 
@@ -167,60 +177,52 @@ export class PromptBuilder {
   }
 }
 
-export class TemplateBuilder {
-  private framework: PromptFramework;
+export class TemplateBuilder extends BaseBuilder<TemplateConfig, TemplateBuilder> {
   private name: string;
-  private _content?: string;
-  private _variables?: string[];
 
   constructor(framework: PromptFramework, name: string) {
-    this.framework = framework;
+    super(framework);
     this.name = name;
   }
 
   content(content: string) {
-    this._content = content;
-    return this;
+    return this.set('content', content);
   }
 
   variables(variables: string[]) {
-    this._variables = variables;
-    return this;
+    return this.set('variables', variables);
   }
 
   async create() {
     return this.framework.createTemplate({
       name: this.name,
-      content: this._content || '',
-      variables: this._variables || []
+      content: this.config.content || '',
+      variables: this.config.variables || []
     });
   }
 
-  async fill(variables: Record<string, any>) {
+  async fill(variables: Record<string, unknown>) {
     const template = await this.create();
     return this.framework.fillTemplate(template.id, variables);
   }
 }
 
-export class ConversationBuilder {
-  private framework: PromptFramework;
+export class ConversationBuilder extends BaseBuilder<ConversationConfig, ConversationBuilder> {
   private name: string;
-  private _systemPrompt?: string;
 
   constructor(framework: PromptFramework, name: string) {
-    this.framework = framework;
+    super(framework);
     this.name = name;
   }
 
-  systemPrompt(prompt: string) {
-    this._systemPrompt = prompt;
-    return this;
+  systemPrompt(systemPrompt: string) {
+    return this.set('systemPrompt', systemPrompt);
   }
 
   async create() {
     return this.framework.createConversation({
       name: this.name,
-      systemPrompt: this._systemPrompt
+      systemPrompt: this.config.systemPrompt
     });
   }
 
@@ -230,48 +232,41 @@ export class ConversationBuilder {
   }
 }
 
-export class AgentBuilder {
-  private framework: PromptFramework;
+export class AgentBuilder extends BaseBuilder<AgentConfig, AgentBuilder> {
   private name: string;
-  private _type?: string;
-  private _systemPrompt?: string;
-  private _capabilities?: string[];
 
   constructor(framework: PromptFramework, name: string) {
-    this.framework = framework;
+    super(framework);
     this.name = name;
   }
 
   type(type: string) {
-    this._type = type;
-    return this;
+    return this.set('type', type);
   }
 
-  systemPrompt(prompt: string) {
-    this._systemPrompt = prompt;
-    return this;
+  systemPrompt(systemPrompt: string) {
+    return this.set('systemPrompt', systemPrompt);
   }
 
   capabilities(capabilities: string[]) {
-    this._capabilities = capabilities;
-    return this;
+    return this.set('capabilities', capabilities);
   }
 
   async create() {
     return this.framework.createAgent({
       name: this.name,
-      type: this._type,
-      systemPrompt: this._systemPrompt,
-      capabilities: this._capabilities
+      type: this.config.type,
+      systemPrompt: this.config.systemPrompt,
+      capabilities: this.config.capabilities
     });
   }
 
-  async execute(task: any) {
+  async execute(task: unknown) {
     const agent = await this.create();
     return this.framework.executeAgent(agent.id, task);
   }
 }
 
-export function createEasyAPI(config?: any) {
+export function createEasyAPI(config?: unknown) {
   return new EasyAPI(config);
 }

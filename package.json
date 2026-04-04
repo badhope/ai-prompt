@@ -1,13 +1,27 @@
 {
   "name": "ai-prompt-framework",
-  "version": "3.1.0",
-  "description": "Enterprise-grade AI Prompt Engineering Framework with Easy API, Security, Caching, and AI Agent Support",
+  "version": "4.0.0",
+  "description": "A simple and efficient AI Prompt Engineering Framework with Easy API, Template Engine, and Agent Support",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "bin": {
-    "prompt-cli": "./dist/cli/index.js"
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    },
+    "./easy-api": {
+      "types": "./dist/easy-api.d.ts",
+      "import": "./dist/easy-api.js",
+      "require": "./dist/easy-api.js"
+    }
   },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
@@ -19,54 +33,42 @@
     "lint:fix": "eslint src --ext .ts,.tsx --fix",
     "format": "prettier --write \"src/**/*.ts\"",
     "format:check": "prettier --check \"src/**/*.ts\"",
-    "cli": "node --loader ts-node/esm src/cli/index.ts",
     "clean": "rm -rf dist coverage",
     "prepare": "npm run build",
-    "prepublishOnly": "npm run test && npm run lint && npm run typecheck",
+    "prepublishOnly": "npm run clean && npm run build && npm run test && npm run lint && npm run typecheck",
     "example:developer": "ts-node examples/developer-usage.ts",
     "example:agent": "ts-node examples/ai-agent-usage.ts",
     "example:easy-api": "ts-node examples/easy-api-usage.ts"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/user/ai-prompt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/user/ai-prompt/issues"
+  },
+  "homepage": "https://github.com/user/ai-prompt#readme",
   "keywords": [
     "ai",
     "prompt-engineering",
     "llm",
-    "chatgpt",
-    "claude",
-    "gemini",
     "prompt-template",
-    "prompt-management"
+    "prompt-management",
+    "typescript"
   ],
   "author": "",
   "license": "MIT",
-  "dependencies": {
-    "@anthropic-ai/sdk": "^0.27.0",
-    "@google/generative-ai": "^0.21.0",
-    "chalk": "^5.3.0",
-    "commander": "^12.1.0",
-    "ink": "^5.0.1",
-    "inquirer": "^12.0.0",
-    "openai": "^4.76.0",
-    "react": "^18.3.1",
-    "yaml": "^2.6.0",
-    "zod": "^3.23.8",
-    "better-sqlite3": "^11.3.0",
-    "uuid": "^10.0.0",
-    "ora": "^8.1.0",
-    "cli-table3": "^0.6.5"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@types/better-sqlite3": "^7.6.11",
     "@types/node": "^22.7.0",
-    "@types/react": "^18.3.5",
-    "@types/uuid": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^8.5.0",
     "@typescript-eslint/parser": "^8.5.0",
     "eslint": "^9.10.0",
     "prettier": "^3.3.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.2",
-    "vitest": "^2.1.0"
+    "vitest": "^2.1.0",
+    "@vitest/coverage-v8": "^2.1.0"
   },
   "engines": {
     "node": ">=18.0.0"
