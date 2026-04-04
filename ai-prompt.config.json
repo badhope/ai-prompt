@@ -1,0 +1,18 @@
+{
+  "aiPromptFramework": {
+    "enabled": true,
+    "mode": "multi",
+    "autoOptimize": true,
+    "enableContext": true,
+    "logLevel": "info",
+    "enableMonitoring": true,
+    "persistence": {
+      "enabled": false,
+      "type": "memory"
+    },
+    "agents": {
+      "default": "通用助手",
+      "custom": []
+    }
+  }
+}
