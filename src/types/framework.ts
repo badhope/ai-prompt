@@ -40,17 +40,7 @@ export interface Message {
   timestamp: Date;
 }
 
-export interface AgentConfig {
-  name: string;
-  type?: string;
-  systemPrompt?: string;
-  capabilities?: string[];
-}
 
-export interface Agent extends AgentConfig {
-  id: string;
-  createdAt: Date;
-}
 
 export interface ExecutionResult {
   id: string;

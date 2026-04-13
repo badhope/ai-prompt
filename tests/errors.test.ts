@@ -47,11 +47,6 @@ describe('Error Handling', () => {
       await expect(framework.createConversation({ name: '' })).rejects.toThrow(ValidationError);
     });
 
-    it('should throw validation error for empty agent name', async () => {
-      const framework = new PromptFramework();
-      await expect(framework.createAgent({ name: '' })).rejects.toThrow(ValidationError);
-    });
-
     it('should throw validation error for empty message', async () => {
       const framework = new PromptFramework();
       const conversation = await framework.createConversation({ name: 'test' });
@@ -82,11 +77,6 @@ describe('Error Handling', () => {
     it('should throw not found error for non-existent conversation', async () => {
       const framework = new PromptFramework();
       await expect(framework.chat('non-existent', 'hello')).rejects.toThrow(NotFoundError);
-    });
-
-    it('should throw not found error for non-existent agent', async () => {
-      const framework = new PromptFramework();
-      await expect(framework.executeAgent('non-existent', {})).rejects.toThrow(NotFoundError);
     });
 
     it('should throw not found error when updating non-existent prompt', async () => {

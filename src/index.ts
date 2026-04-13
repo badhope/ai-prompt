@@ -5,8 +5,6 @@ import {
   Template,
   ConversationConfig,
   Conversation,
-  AgentConfig,
-  Agent,
   ExecutionResult,
   FrameworkConfig,
   Stats,
@@ -20,7 +18,6 @@ export class PromptFramework {
   private prompts: Map<string, Prompt> = new Map();
   private templates: Map<string, Template> = new Map();
   private conversations: Map<string, Conversation> = new Map();
-  private agents: Map<string, Agent> = new Map();
   private executions: ExecutionResult[] = [];
   private budgetAlertCallback?: (alert: BudgetAlert) => void;
 
@@ -188,37 +185,6 @@ export class PromptFramework {
     return response;
   }
 
-  async createAgent(config: AgentConfig): Promise<Agent> {
-    if (!config.name || config.name.trim() === '') {
-      throw new ValidationError('name', 'Agent name cannot be empty');
-    }
-
-    const id = this.generateId();
-    
-    const agent: Agent = {
-      id,
-      ...config,
-      createdAt: new Date()
-    };
-    
-    this.agents.set(id, agent);
-    return agent;
-  }
-
-  async executeAgent(agentId: string, task: unknown): Promise<unknown> {
-    const agent = this.agents.get(agentId);
-    if (!agent) {
-      throw new NotFoundError('Agent', agentId);
-    }
-
-    return {
-      agentId,
-      task,
-      result: `Agent ${agent.name} executed task`,
-      timestamp: new Date()
-    };
-  }
-
   getStats(): Stats {
     const totalExecutions = this.executions.length;
     const totalCost = this.executions.reduce((sum, exec) => sum + exec.cost, 0);
@@ -294,5 +260,17 @@ export class PromptFramework {
     return `${Date.now()}-${Math.random().toString(36).substring(2, 11)}`;
   }
 }
+
+export { PromptOptimizer, createOptimizer, optimizePrompt } from './optimizer';
+export type * from './optimizer';
+
+export { Toolkit, createToolkit, builtInTools } from './tools';
+export type * from './tools';
+
+export { Agent, createAgent } from './agent';
+export type * from './agent';
+
+export { PromptIntegration, createIntegration } from './integration';
+export type * from './integration';
 
 export default PromptFramework;

@@ -264,48 +264,6 @@ describe('PromptFramework', () => {
     });
   });
 
-  describe('Agent Management', () => {
-    it('should create an agent', async () => {
-      const framework = new PromptFramework();
-      const agent = await framework.createAgent({
-        name: 'test-agent',
-        type: 'assistant',
-        capabilities: ['chat']
-      });
-
-      expect(agent.id).toBeDefined();
-      expect(agent.name).toBe('test-agent');
-      expect(agent.createdAt).toBeInstanceOf(Date);
-    });
-
-    it('should throw error when creating agent with empty name', async () => {
-      const framework = new PromptFramework();
-      await expect(framework.createAgent({
-        name: ''
-      })).rejects.toThrow(ValidationError);
-    });
-
-    it('should execute an agent', async () => {
-      const framework = new PromptFramework();
-      const agent = await framework.createAgent({
-        name: 'test-agent'
-      });
-
-      const result = await framework.executeAgent(agent.id, { task: 'test' });
-      expect(result).toMatchObject({
-        agentId: agent.id,
-        task: { task: 'test' }
-      });
-      expect(result).toHaveProperty('result');
-      expect(result).toHaveProperty('timestamp');
-    });
-
-    it('should throw error when executing non-existent agent', async () => {
-      const framework = new PromptFramework();
-      await expect(framework.executeAgent('non-existent', {})).rejects.toThrow(NotFoundError);
-    });
-  });
-
   describe('Statistics and Monitoring', () => {
     it('should get accurate stats', async () => {
       const framework = new PromptFramework();
@@ -480,15 +438,4 @@ describe('EasyAPI', () => {
     expect(response).toContain('Response to: Hello');
   });
 
-  it('should support agent builder', async () => {
-    const api = createEasyAPI();
-    const result = await api
-      .agent('test-agent')
-      .type('assistant')
-      .capabilities(['chat', 'code'])
-      .execute({ task: 'test' });
-
-    expect(result).toHaveProperty('agentId');
-    expect(result).toHaveProperty('result');
-  });
 });

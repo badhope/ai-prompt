@@ -3,7 +3,6 @@ import {
   PromptConfig,
   TemplateConfig,
   ConversationConfig,
-  AgentConfig,
   BudgetAlert
 } from './types/framework';
 
@@ -24,10 +23,6 @@ export class EasyAPI {
 
   conversation(name: string) {
     return new ConversationBuilder(this.framework, name);
-  }
-
-  agent(name: string) {
-    return new AgentBuilder(this.framework, name);
   }
 
   async quick(content: string, variables?: Record<string, unknown>) {
@@ -229,41 +224,6 @@ export class ConversationBuilder extends BaseBuilder<ConversationConfig, Convers
   async chat(message: string) {
     const conversation = await this.create();
     return this.framework.chat(conversation.id, message);
-  }
-}
-
-export class AgentBuilder extends BaseBuilder<AgentConfig, AgentBuilder> {
-  private name: string;
-
-  constructor(framework: PromptFramework, name: string) {
-    super(framework);
-    this.name = name;
-  }
-
-  type(type: string) {
-    return this.set('type', type);
-  }
-
-  systemPrompt(systemPrompt: string) {
-    return this.set('systemPrompt', systemPrompt);
-  }
-
-  capabilities(capabilities: string[]) {
-    return this.set('capabilities', capabilities);
-  }
-
-  async create() {
-    return this.framework.createAgent({
-      name: this.name,
-      type: this.config.type,
-      systemPrompt: this.config.systemPrompt,
-      capabilities: this.config.capabilities
-    });
-  }
-
-  async execute(task: unknown) {
-    const agent = await this.create();
-    return this.framework.executeAgent(agent.id, task);
   }
 }
 
