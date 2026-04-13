@@ -1,7 +1,7 @@
 {
   "name": "ai-prompt-framework",
   "version": "4.0.0",
-  "description": "A simple and efficient AI Prompt Engineering Framework with Easy API, Template Engine, and Agent Support",
+  "description": "Enterprise-grade Prompt Engineering Toolkit - Token Optimization, Chain-of-Thought, Function Calling, Lightweight Agent. Zero dependencies, bilingual support, production ready.",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -10,11 +10,6 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.js"
-    },
-    "./easy-api": {
-      "types": "./dist/easy-api.d.ts",
-      "import": "./dist/easy-api.js",
-      "require": "./dist/easy-api.js"
     }
   },
   "files": [
@@ -35,28 +30,43 @@
     "format:check": "prettier --check \"src/**/*.ts\"",
     "clean": "rm -rf dist coverage",
     "prepare": "npm run build",
-    "prepublishOnly": "npm run clean && npm run build && npm run test && npm run lint && npm run typecheck",
-    "example:developer": "ts-node examples/developer-usage.ts",
-    "example:agent": "ts-node examples/ai-agent-usage.ts",
-    "example:easy-api": "ts-node examples/easy-api-usage.ts"
+    "prepublishOnly": "npm run clean && npm run build && npm run test && npm run typecheck",
+    "release": "npm run build && npm publish --access public",
+    "release:jsr": "npx jsr publish",
+    "release:jsr:dry": "npx jsr publish --dry-run"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/user/ai-prompt.git"
+    "url": "git+https://github.com/badhope/ai-prompt.git"
   },
   "bugs": {
-    "url": "https://github.com/user/ai-prompt/issues"
+    "url": "https://github.com/badhope/ai-prompt/issues"
   },
-  "homepage": "https://github.com/user/ai-prompt#readme",
+  "homepage": "https://github.com/badhope/ai-prompt#readme",
   "keywords": [
     "ai",
-    "prompt-engineering",
     "llm",
+    "prompt",
+    "prompt-engineering",
+    "prompt-optimization",
+    "token-saving",
+    "chain-of-thought",
+    "cot",
+    "function-calling",
+    "tool-calling",
+    "agent",
+    "react-agent",
+    "openai",
+    "gpt",
+    "claude",
     "prompt-template",
     "prompt-management",
-    "typescript"
+    "i18n",
+    "bilingual",
+    "typescript",
+    "zero-dependencies"
   ],
-  "author": "",
+  "author": "ai-prompt",
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
@@ -72,5 +82,14 @@
   },
   "engines": {
     "node": ">=18.0.0"
+  },
+  "jsr": {
+    "name": "@ai/prompt-framework",
+    "version": "4.0.0",
+    "exports": "./src/index.ts"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/badhope"
   }
 }
